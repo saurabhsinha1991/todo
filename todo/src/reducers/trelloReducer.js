@@ -9,8 +9,12 @@ const trelloReducer = (state = {}, action) => {
 
             return trelloContent;
       case 'ADD_TODO':
-
         return Object.assign({}, state, { todo: [...state.todo, action.item] });
+      case 'REMOVE_CARD':
+            const { type, title } = action.item;
+
+            const newList = state[type].filter((eachList) => eachList.title !== title);
+        return Object.assign({}, state, {[type]: newList})
       default:
         return state
     }

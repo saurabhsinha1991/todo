@@ -11,3 +11,10 @@ export const addTodoList = (data) => {
         item: data
     }
 }
+
+export const removeItem = (data) => {
+    return {
+        type: 'REMOVE_CARD',
+        item: data
+    }
+}

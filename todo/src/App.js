@@ -5,13 +5,14 @@ import TodoList from './components/todoList';
 import InprogressList from './components/inprogressList';
 import DoneList from './components/doneList';
 import { bindActionCreators } from 'redux';
-import { getTrelloDetails, addTodoList } from './actions/trelloActions';
+import { getTrelloDetails, addTodoList, removeItem } from './actions/trelloActions';
 
 class App extends Component {
 
     constructor(props) {
         super(props);
         this.addItem = this.addItem.bind(this);
+        this.removeItem = this.removeItem.bind(this);
     }
 
   componentDidMount() {
@@ -22,8 +23,11 @@ class App extends Component {
       });
   }
 
+  removeItem(obj) {
+      this.props.actions.removeCard(obj);
+  }
+
   addItem(obj) {
-      debugger
       this.props.actions.addTodoList(obj);
   }
 
@@ -38,13 +42,13 @@ class App extends Component {
         </header>
         <div className='wrapper'>
             <div className='list'>
-                <TodoList cardList={ todo } addItem={ this.addItem } />
+                <TodoList removeItem={ this.removeItem } cardList={ todo } addItem={ this.addItem } />
             </div>
             <div className='list'>
-                <InprogressList cardList={ inprogress } />
+                <InprogressList removeItem={ this.removeItem } cardList={ inprogress } />
             </div>
             <div className='list'>
-                <DoneList cardList={ done } />
+                <DoneList removeItem={ this.removeItem } cardList={ done } />
             </div>
         </div> 
       </div>
@@ -62,7 +66,8 @@ function mapDispatchToProps(dispatch) {
   return {
       actions: {
           getTrelloDetails: bindActionCreators(getTrelloDetails, dispatch),
-          addTodoList: bindActionCreators(addTodoList, dispatch)
+          addTodoList: bindActionCreators(addTodoList, dispatch),
+          removeCard: bindActionCreators(removeItem, dispatch)
       }
   }
 }

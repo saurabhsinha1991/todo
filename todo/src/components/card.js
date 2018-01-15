@@ -1,15 +1,11 @@
 import React from 'react';
 
-const Card = ({ title, description }) => (
-    <div className='question' draggable="true" onDragStart={(event) => drag(event)}>
+const Card = ({ type, title, description, removeCallback }) => (
+    <div className='question' draggable="true">
+        <span className='remove' onClick={() => removeCallback(type, title) }>Remove Item</span>
         <h4>{ title }</h4>
         <p>{ description }</p>
     </div>
 )
-
-function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-}
-
 
 export default Card;

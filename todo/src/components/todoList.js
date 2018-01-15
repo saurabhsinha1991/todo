@@ -29,8 +29,8 @@ class TodoList extends Component {
       }
   }
 
-  ondragover(e) {
-      debugger
+  removeItem(type, title) {
+        this.props.removeItem({type, title});
   }
 
   render() {
@@ -39,7 +39,7 @@ class TodoList extends Component {
                 <h3>To Do List</h3>
 
                 { this.props.cardList.map((eachCard, index)=> (
-                  <Card key={index} { ...eachCard } />
+                  <Card type='todo' removeCallback={ this.removeItem.bind(this) } key={index} { ...eachCard } />
                 ))}
                 
                 { (this.state.isFieldOpen) ?
