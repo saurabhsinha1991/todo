@@ -11,7 +11,7 @@ class App extends Component {
 
     constructor(props) {
         super(props);
-        this.addItem = this.addItem.bind(this);
+        this.updateItem = this.updateItem.bind(this);
         this.removeItem = this.removeItem.bind(this);
     }
 
@@ -23,12 +23,27 @@ class App extends Component {
       });
   }
 
+//   onDrop = (data) => {
+//     console.log(this.props)
+//     const updateItem = JSON.parse(data.todo ? data.todo : data.done);
+//     updateItem.addType = this.state.type;
+//   }
+
   removeItem(obj) {
       this.props.actions.removeCard(obj);
   }
 
-  addItem(obj) {
-      this.props.actions.addTodoList(obj);
+  updateItem(data, type, types) {
+      const { item } = data;
+      let updateItem;
+      if(types.length) {
+        updateItem = JSON.parse(item[types[0]] ? item[types[0]] : item[types[1]]);
+        updateItem.addType = type;
+      }
+      else {
+        updateItem = {item: data, addType: type};
+      }
+      this.props.actions.addTodoList(updateItem);
   }
 
   render() {
@@ -42,13 +57,13 @@ class App extends Component {
         </header>
         <div className='wrapper'>
             <div className='list'>
-                <TodoList removeItem={ this.removeItem } cardList={ todo } addItem={ this.addItem } />
+                <TodoList types = {['inprogress', 'done']} type={'todo'} cardList={ todo } updateItem={ this.updateItem } />
             </div>
             <div className='list'>
-                <InprogressList removeItem={ this.removeItem } cardList={ inprogress } />
+                <InprogressList types = {['done', 'todo']} type={'inprogress'} cardList={ inprogress } updateItem={ this.updateItem } />
             </div>
             <div className='list'>
-                <DoneList removeItem={ this.removeItem } cardList={ done } />
+                <DoneList types = {['todo', 'inprogress']} type={'done'} removeItem={ this.removeItem } cardList={ done } updateItem={ this.updateItem } />
             </div>
         </div> 
       </div>

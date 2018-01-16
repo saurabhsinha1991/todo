@@ -8,8 +8,9 @@ const trelloReducer = (state = {}, action) => {
             });
 
             return trelloContent;
-      case 'ADD_TODO':
-        return Object.assign({}, state, { todo: [...state.todo, action.item] });
+      case 'ADD_ITEM':
+        return Object.assign({}, state, { [action.item.addType]: [...state[action.item.addType], action.item.item] },
+            { [action.item.removeType]: action.item.removeType && state[action.item.removeType].filter((eachItem) => eachItem.title !== action.item.item.title) });
       case 'REMOVE_CARD':
             const { type, title } = action.item;
 

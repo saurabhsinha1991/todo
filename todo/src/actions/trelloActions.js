@@ -7,7 +7,7 @@ export const getTrelloDetails = (data) => {
 
 export const addTodoList = (data) => {
     return {
-        type: 'ADD_TODO',
+        type: 'ADD_ITEM',
         item: data
     }
 }

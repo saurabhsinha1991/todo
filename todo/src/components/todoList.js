@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Card from './card';
+import { Draggable, Droppable } from 'react-drag-and-drop';
 
 class TodoList extends Component {
   constructor(props) {
@@ -22,12 +23,22 @@ class TodoList extends Component {
   addItem(e) {
       e.preventDefault();
       if ( this.title &&  this.description ) {
-          this.props.addItem({
+          this.props.updateItem({
               title: this.title.value,
               description: this.description.value
-          });
+          },this.props.type, []);
+            this.title.value = '';
+            this.description.value = '';
       }
   }
+
+  ondragover = () => {
+      debugger
+  }
+
+  onDrop = (item) => {
+    this.props.updateItem({item}, this.props.type, this.props.types);
+   }
 
   removeItem(type, title) {
         this.props.removeItem({type, title});
@@ -37,11 +48,12 @@ class TodoList extends Component {
         return (
             <div className='list-wrapper' onDrop={(e) => this.ondragover(e)}>
                 <h3>To Do List</h3>
-
+                <Droppable types = {this.props.types} onDrop={this.onDrop}>
                 { this.props.cardList.map((eachCard, index)=> (
-                  <Card type='todo' removeCallback={ this.removeItem.bind(this) } key={index} { ...eachCard } />
+                    <Draggable type={this.props.type} data = {JSON.stringify({item: eachCard, removeType: this.props.type})} ><Card type={this.props.type} removeCallback={ this.removeItem.bind(this) } key={index} { ...eachCard } /></Draggable>
+                                    
                 ))}
-                
+                </Droppable>
                 { (this.state.isFieldOpen) ?
                     <form>
                         <div>
