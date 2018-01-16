@@ -17,9 +17,11 @@ class InprogressList extends Component {
             <div className='list-wrapper'>
                 <h3>In Progress List</h3>
                 <Droppable types = {this.props.types} onDrop={this.onDrop}>
-                { this.props.cardList.map((eachCard, index)=> (
-                  <Draggable type={this.props.type} data = {JSON.stringify({item: eachCard, removeType: this.props.type})} key={index} ><Card type={this.props.type} removeCallback={ this.removeItem.bind(this) } key={index} { ...eachCard } /></Draggable>
-                ))}
+                  { this.props.cardList.map((eachCard, index)=> (
+                    <Draggable type={this.props.type} key={`inprogress-${index}`} data = {JSON.stringify({item: eachCard, removeType: this.props.type})} >
+                        <Card type={this.props.type} removeCallback={ this.removeItem.bind(this) } key={index} { ...eachCard } />
+                    </Draggable>
+                  ))}
                 </Droppable>
             </div>
         );

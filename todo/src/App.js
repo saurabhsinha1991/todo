@@ -23,12 +23,6 @@ class App extends Component {
       });
   }
 
-//   onDrop = (data) => {
-//     console.log(this.props)
-//     const updateItem = JSON.parse(data.todo ? data.todo : data.done);
-//     updateItem.addType = this.state.type;
-//   }
-
   removeItem(obj) {
       this.props.actions.removeCard(obj);
   }
@@ -57,13 +51,13 @@ class App extends Component {
         </header>
         <div className='wrapper'>
             <div className='list'>
-                <TodoList types = {['inprogress', 'done']} type={'todo'} cardList={ todo } updateItem={ this.updateItem } />
+                <TodoList types = {['inprogress', 'done']} type={'todo'} cardList={ todo } updateItem={ this.updateItem } removeItem={ this.removeItem } />
             </div>
             <div className='list'>
-                <InprogressList types = {['done', 'todo']} type={'inprogress'} cardList={ inprogress } updateItem={ this.updateItem } />
+                <InprogressList types = {['done', 'todo']} type={'inprogress'} cardList={ inprogress } updateItem={ this.updateItem } removeItem={ this.removeItem } />
             </div>
             <div className='list'>
-                <DoneList types = {['todo', 'inprogress']} type={'done'} removeItem={ this.removeItem } cardList={ done } updateItem={ this.updateItem } />
+                <DoneList types = {['todo', 'inprogress']} type={'done'} cardList={ done } updateItem={ this.updateItem } removeItem={ this.removeItem } />
             </div>
         </div> 
       </div>

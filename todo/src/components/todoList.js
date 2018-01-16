@@ -49,10 +49,12 @@ class TodoList extends Component {
             <div className='list-wrapper' onDrop={(e) => this.ondragover(e)}>
                 <h3>To Do List</h3>
                 <Droppable types = {this.props.types} onDrop={this.onDrop}>
-                { this.props.cardList.map((eachCard, index)=> (
-                    <Draggable type={this.props.type} data = {JSON.stringify({item: eachCard, removeType: this.props.type})} ><Card type={this.props.type} removeCallback={ this.removeItem.bind(this) } key={index} { ...eachCard } /></Draggable>
-                                    
-                ))}
+                    { this.props.cardList.map((eachCard, index)=> (
+                        <Draggable type={this.props.type} key={`todo-${index}`} data = {JSON.stringify({item: eachCard, removeType: this.props.type})} >
+                            <Card type={this.props.type} removeCallback={ this.removeItem.bind(this) } key={index} { ...eachCard } />
+                        </Draggable>
+                                        
+                    ))}
                 </Droppable>
                 { (this.state.isFieldOpen) ?
                     <form>
