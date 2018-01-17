@@ -22,7 +22,7 @@ class TodoList extends Component {
 
   addItem(e) {
       e.preventDefault();
-      if ( this.title &&  this.description ) {
+      if ( this.title.value &&  this.description.value ) {
           this.props.updateItem({
               title: this.title.value,
               description: this.description.value
