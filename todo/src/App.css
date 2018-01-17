@@ -57,3 +57,6 @@ div[type='done'] .card {
   top: 10px;
   right: 10px;
 }
+.Droppable {
+    min-height: 100px;
+}
