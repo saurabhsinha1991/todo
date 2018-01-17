@@ -32,10 +32,6 @@ class TodoList extends Component {
       }
   }
 
-  ondragover = () => {
-      debugger
-  }
-
   onDrop = (item) => {
     this.props.updateItem({item}, this.props.type, this.props.types);
    }
